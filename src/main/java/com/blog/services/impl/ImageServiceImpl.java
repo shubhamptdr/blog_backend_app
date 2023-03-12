@@ -1,6 +1,7 @@
 package com.blog.services.impl;
 
 import com.blog.dtos.request.ImageEntryDto;
+import com.blog.dtos.response.ImageResponseDto;
 import com.blog.entities.Blog;
 import com.blog.entities.Image;
 import com.blog.repositories.BlogRepository;
@@ -8,6 +9,9 @@ import com.blog.repositories.ImageRepository;
 import com.blog.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 
@@ -72,5 +76,22 @@ public class ImageServiceImpl implements ImageService {
         imageRepository2.delete(image);
 
         return "Deleted image successfully";
+    }
+
+    @Override
+    public List<ImageResponseDto> getAllImage(int blogId) {
+        Blog blog = blogRepository2.findById(blogId).get();
+        List<ImageResponseDto> imageResponseDtoList = new ArrayList<>();
+
+        for (Image image  : blog.getImageList()){
+            ImageResponseDto imageResponseDto = ImageResponseDto.builder()
+                    .id(image.getId())
+                    .description(image.getDescription())
+                    .dimensions(image.getDimensions())
+                    .build();
+            imageResponseDtoList.add(imageResponseDto);
+        }
+
+        return imageResponseDtoList;
     }
 }

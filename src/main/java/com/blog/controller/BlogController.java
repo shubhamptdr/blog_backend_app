@@ -1,11 +1,14 @@
 package com.blog.controller;
 
 import com.blog.dtos.request.BlogEntryDto;
+import com.blog.dtos.response.BlogResponseDto;
 import com.blog.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/blogs")
@@ -35,6 +38,13 @@ public class BlogController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CREATED);
         }
     }
+    @GetMapping("/getAllBlog")
+    public ResponseEntity<List<BlogResponseDto>> getAllBlog(@RequestBody int userId) {
+        List<BlogResponseDto> response = blogService.getAllBlog(userId);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+
 }
 
 

@@ -2,11 +2,15 @@ package com.blog.controller;
 
 
 import com.blog.dtos.request.ImageEntryDto;
+import com.blog.dtos.response.BlogResponseDto;
+import com.blog.dtos.response.ImageResponseDto;
 import com.blog.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -15,7 +19,7 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
-    @PostMapping("/add-image")
+    @PostMapping("/")
     public ResponseEntity<String> addImage(@RequestBody ImageEntryDto imageEntryDto) {
 
         try{
@@ -34,7 +38,7 @@ public class ImageController {
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteImage(@PathVariable int id) {
         try{
             String response = imageService.deleteImage(id);
@@ -44,5 +48,11 @@ public class ImageController {
 
             return new ResponseEntity<>(e.getMessage() ,HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<ImageResponseDto>> getAllImage(@RequestBody int blogId) {
+        List<ImageResponseDto> response = imageService.getAllImage(blogId);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
