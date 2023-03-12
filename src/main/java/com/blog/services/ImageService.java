@@ -1,14 +1,13 @@
 package com.blog.services;
 
 
-import com.blog.entities.Image;
 
 public interface ImageService {
 
 
-    String addImage(int blogId, String description, String dimensions);
+    String addImage(int blogId, String description, String dimensions) throws Exception;
 
     int countImagesInScreen(int id, String screenDimensions);
 
-    void deleteImage(int id);
+    String deleteImage(int id) throws Exception;
 }

@@ -14,22 +14,29 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestParam String username, @RequestParam String password) {
-        // create a new user with given username and password
         String response = userService.createUser(username,password);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        // delete user using deleteById
-        userService.deleteUser(userId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> deleteUser(@PathVariable int userId) {
+        try{
+            String response = userService.deleteUser(userId);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage() ,HttpStatus.OK);
+        }
     }
 
     @PutMapping("/update")
     public ResponseEntity<String> updateUser(@RequestParam Integer id, @RequestParam String password) {
-        // update password of given user
-        String response = userService.updateUser(id,password);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        try{
+            String response = userService.updateUser(id,password);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage() ,HttpStatus.OK);
+        }
     }
 }

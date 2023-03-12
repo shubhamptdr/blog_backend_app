@@ -5,7 +5,7 @@ import com.blog.entities.Blog;
 
 public interface BlogService {
 
-    Blog createAndReturnBlog(Integer userId, String title, String content);
+    String createAndReturnBlog(Integer userId, String title, String content) throws Exception;
 
-    void deleteBlog(int blogId);
+    String deleteBlog(int blogId) throws Exception;
 }

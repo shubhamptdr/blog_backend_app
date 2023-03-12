@@ -19,23 +19,32 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     UserRepository userRepository1;
     @Override
-    public Blog createAndReturnBlog(Integer userId, String title, String content) {
-        User user = userRepository1.findById(userId).get();
-        // create blog and set attr.
-        Blog blog = new Blog();
-        blog.setTitle(title);
-        blog.setContent(content);
-        blog.setUser(user);
-        blog.setPubDate(new Date());
+    public String createAndReturnBlog(Integer userId, String title, String content) throws Exception {
 
-        // save parent
+        User user = userRepository1.findById(userId).get();
+        if(user == null)
+            throw new Exception("User not found");
+
+        // create blog entity
+        Blog blog = Blog.builder()
+                .title(title)
+                .user(user)
+                .content(content)
+                .pubDate(new Date())
+                .build();
+
+        // save parent -------
         user.getBlogList().add(blog);
         userRepository1.save(user);
-        return blog;
+        return "Blog created successfully";
     }
 
     @Override
-    public void deleteBlog(int blogId) {
+    public String deleteBlog(int blogId) throws Exception {
+        Blog blog = blogRepository1.findById(blogId).get();
+        if(blog == null)
+            throw new Exception("Blog not found");
         blogRepository1.deleteById(blogId);
+        return "Blog deleted successfully";
     }
 }

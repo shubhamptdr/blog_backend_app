@@ -5,7 +5,7 @@ public interface UserService {
 
     String createUser(String username, String password);
 
-    void deleteUser(int userId);
+    String deleteUser(int userId) throws Exception;
 
-    String updateUser(Integer id, String password);
+    String updateUser(Integer id, String password) throws Exception;
 }

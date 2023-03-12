@@ -9,22 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+
 public class ImageServiceImpl implements ImageService {
     @Autowired
     BlogRepository blogRepository2;
     @Autowired
     ImageRepository imageRepository2;
     @Override
-    public String addImage(int blogId, String description, String dimensions) {
+    public String addImage(int blogId, String description, String dimensions) throws Exception {
         // fetch blog entity
         Blog blog = blogRepository2.findById(blogId).get();
-        // create image entity
-        Image image = new Image();
-        image.setDimensions(dimensions);
-        image.setDescription(description);
-        image.setBlog(blog);
+        if (blog == null)
+            throw new Exception("Blog not found");
 
-        //save parent
+        // create image entity
+        Image image = Image.builder()
+                .dimensions(dimensions)
+                .description(description)
+                .blog(blog)
+                .build();
+
+        //save parent------------------
         blog.getImageList().add(image);
         blogRepository2.save(blog);
         return "Added image successfully";
@@ -32,7 +37,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public int countImagesInScreen(int id, String screenDimensions) {
-        String [] scrarray = screenDimensions.split("X");
+        String [] scrArray = screenDimensions.split("X");
 
         // fetch image entity
         Image image = imageRepository2.findById(id).get();
@@ -40,14 +45,14 @@ public class ImageServiceImpl implements ImageService {
         String imageDimensions = image.getDimensions();
         String [] imgarray = imageDimensions.split("X");
 
-        int scrl = Integer.parseInt(scrarray[0]);
-        int scrb = Integer.parseInt(scrarray[1]);
+        int scrL = Integer.parseInt(scrArray[0]);
+        int scrB = Integer.parseInt(scrArray[1]);
 
-        int imgl = Integer.parseInt(imgarray[0]);
-        int imgb = Integer.parseInt(imgarray[1]);
+        int imgL = Integer.parseInt(imgarray[0]);
+        int imgB = Integer.parseInt(imgarray[1]);
 
 
-        return noImages(scrl,scrb,imgl,imgb);
+        return noImages(scrL,scrB,imgL,imgB);
     }
 
     private int noImages(int scrl, int scrb, int imgl, int imgb) {
@@ -57,8 +62,14 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteImage(int id) {
-        imageRepository2.deleteById(id);
+    public String deleteImage(int id) throws Exception {
 
+        Image image = imageRepository2.findById(id).get();
+        if(image == null)
+            throw new Exception("Image not found");
+
+        imageRepository2.delete(image);
+
+        return "Deleted image successfully";
     }
 }

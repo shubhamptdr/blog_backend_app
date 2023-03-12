@@ -12,23 +12,39 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository3;
     @Override
     public String createUser(String username, String password) {
-        User user = new User();
-        user.setPassword(password);
-        user.setUsername(username);
+        // create entity
+        User user = User.builder()
+                .username(username)
+                .password(password)
+                .build();
+        // save in DB
         userRepository3.save(user);
+
         return "Added User successfully";
     }
 
     @Override
-    public void deleteUser(int userId) {
-        userRepository3.deleteById(userId);
+    public String deleteUser(int userId) throws Exception {
+
+        User user = userRepository3.findById(userId).get();
+
+        if(user == null)
+            throw new Exception("User not found");
+
+        userRepository3.delete(user);
+        return "User delete successfully";
     }
 
     @Override
-    public String updateUser(Integer id, String password) {
+    public String updateUser(Integer id, String password) throws Exception {
         User user = userRepository3.findById(id).get();
+        if(user == null)
+            throw new Exception("User not found");
+        // update attr.
         user.setPassword(password);
+        // save
         userRepository3.save(user);
+
         return "Updated user successfully";
     }
 }
