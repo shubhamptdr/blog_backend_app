@@ -17,7 +17,7 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @PostMapping("/createBlog")
+    @PostMapping("/")
     public ResponseEntity<String> createBlog(@RequestBody BlogEntryDto blogEntryDto){
         try {
             String response = blogService.createAndReturnBlog(blogEntryDto);
@@ -38,8 +38,8 @@ public class BlogController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CREATED);
         }
     }
-    @GetMapping("/getAllBlog")
-    public ResponseEntity<List<BlogResponseDto>> getAllBlog(@RequestBody int userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<BlogResponseDto>> getAllBlog(@PathVariable int userId) {
         List<BlogResponseDto> response = blogService.getAllBlog(userId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

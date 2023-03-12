@@ -13,13 +13,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<String> createUser(@RequestBody UserEntryDto userEntryDto) {
         String response = userService.createUser(userEntryDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable int userId) {
         try{
             String response = userService.deleteUser(userId);
@@ -30,7 +30,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")
     public ResponseEntity<String> updateUser(@RequestParam Integer id, @RequestParam String password) {
         try{
             String response = userService.updateUser(id,password);

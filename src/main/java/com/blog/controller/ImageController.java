@@ -2,7 +2,6 @@ package com.blog.controller;
 
 
 import com.blog.dtos.request.ImageEntryDto;
-import com.blog.dtos.response.BlogResponseDto;
 import com.blog.dtos.response.ImageResponseDto;
 import com.blog.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +49,8 @@ public class ImageController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<ImageResponseDto>> getAllImage(@RequestBody int blogId) {
+    @GetMapping("/{blogId}")
+    public ResponseEntity<List<ImageResponseDto>> getAllImage(@PathVariable int blogId) {
         List<ImageResponseDto> response = imageService.getAllImage(blogId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
