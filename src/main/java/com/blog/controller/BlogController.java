@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import com.blog.entities.Blog;
 import com.blog.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,10 @@ public class BlogController {
     BlogService blogService;
 
     @PostMapping
-    public ResponseEntity createBlog(@RequestParam Integer userId, @RequestParam String title, @RequestParam String content){
+    public ResponseEntity<Blog> createBlog(@RequestParam Integer userId, @RequestParam String title, @RequestParam String content){
         // Create a blog and add it under given user
-        blogService.createAndReturnBlog(userId, title, content);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Blog response = blogService.createAndReturnBlog(userId, title, content);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{blogId}")

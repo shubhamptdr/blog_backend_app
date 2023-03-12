@@ -1,4 +1,4 @@
-package com.blog.models;
+package com.blog.entities;
 
 import org.hibernate.annotations.CreationTimestamp;
 

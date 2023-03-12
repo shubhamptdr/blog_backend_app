@@ -1,6 +1,6 @@
 package com.blog.repositories;
 
-import com.driver.models.Image;
+import com.blog.entities.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

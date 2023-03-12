@@ -1,6 +1,6 @@
 package com.blog.repositories;
 
-import com.driver.models.User;
+import com.blog.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

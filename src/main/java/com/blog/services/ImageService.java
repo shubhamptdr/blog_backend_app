@@ -1,10 +1,12 @@
 package com.blog.services;
 
 
+import com.blog.entities.Image;
+
 public interface ImageService {
 
 
-    void addImage(int blogId, String description, String dimensions);
+    String addImage(int blogId, String description, String dimensions);
 
     int countImagesInScreen(int id, String screenDimensions);
 

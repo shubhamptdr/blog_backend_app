@@ -3,9 +3,9 @@ package com.blog.services;
 
 public interface UserService {
 
-    void createUser(String username, String password);
+    String createUser(String username, String password);
 
     void deleteUser(int userId);
 
-    void updateUser(Integer id, String password);
+    String updateUser(Integer id, String password);
 }

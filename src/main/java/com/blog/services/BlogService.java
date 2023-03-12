@@ -1,11 +1,11 @@
 package com.blog.services;
 
 
-
+import com.blog.entities.Blog;
 
 public interface BlogService {
 
-    void createAndReturnBlog(Integer userId, String title, String content);
+    Blog createAndReturnBlog(Integer userId, String title, String content);
 
     void deleteBlog(int blogId);
 }
