@@ -1,7 +1,7 @@
 package com.blog.controller;
 
 
-import com.driver.services.ImageService;
+import com.blog.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

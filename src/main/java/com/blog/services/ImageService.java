@@ -1,9 +1,12 @@
 package com.blog.services;
 
-import org.springframework.stereotype.Service;
 
-@Service
-public class ImageService {
+public interface ImageService {
 
 
+    void addImage(int blogId, String description, String dimensions);
+
+    int countImagesInScreen(int id, String screenDimensions);
+
+    void deleteImage(int id);
 }

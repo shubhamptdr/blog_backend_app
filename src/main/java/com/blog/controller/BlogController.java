@@ -1,6 +1,6 @@
 package com.blog.controller;
 
-import com.driver.services.BlogService;
+import com.blog.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

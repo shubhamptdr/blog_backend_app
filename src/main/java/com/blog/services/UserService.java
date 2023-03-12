@@ -1,10 +1,11 @@
 package com.blog.services;
 
-import org.springframework.stereotype.Service;
 
+public interface UserService {
 
+    void createUser(String username, String password);
 
-@Service
-public class UserService {
+    void deleteUser(int userId);
 
+    void updateUser(Integer id, String password);
 }
