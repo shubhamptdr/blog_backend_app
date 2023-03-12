@@ -1,9 +1,11 @@
 package com.blog.services;
 
 
+import com.blog.dtos.request.UserEntryDto;
+
 public interface UserService {
 
-    String createUser(String username, String password);
+    String createUser(UserEntryDto userEntryDto);
 
     String deleteUser(int userId) throws Exception;
 

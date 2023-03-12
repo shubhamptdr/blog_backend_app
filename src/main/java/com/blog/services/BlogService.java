@@ -1,11 +1,11 @@
 package com.blog.services;
 
 
-import com.blog.entities.Blog;
+import com.blog.dtos.request.BlogEntryDto;
 
 public interface BlogService {
 
-    String createAndReturnBlog(Integer userId, String title, String content) throws Exception;
+    String createAndReturnBlog(BlogEntryDto blogEntryDto) throws Exception;
 
     String deleteBlog(int blogId) throws Exception;
 }

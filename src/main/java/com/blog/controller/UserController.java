@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import com.blog.dtos.request.UserEntryDto;
 import com.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@RequestParam String username, @RequestParam String password) {
-        String response = userService.createUser(username,password);
+    public ResponseEntity<String> createUser(@RequestBody UserEntryDto userEntryDto) {
+        String response = userService.createUser(userEntryDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

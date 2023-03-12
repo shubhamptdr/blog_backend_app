@@ -1,5 +1,6 @@
 package com.blog.services.impl;
 
+import com.blog.dtos.request.UserEntryDto;
 import com.blog.entities.User;
 import com.blog.repositories.UserRepository;
 import com.blog.services.UserService;
@@ -11,11 +12,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository3;
     @Override
-    public String createUser(String username, String password) {
+    public String createUser(UserEntryDto userEntryDto) {
         // create entity
         User user = User.builder()
-                .username(username)
-                .password(password)
+                .username(userEntryDto.getUsername())
+                .password(userEntryDto.getPassword())
+                .firstName(userEntryDto.getFirstName())
+                .lastName(userEntryDto.getLastName())
                 .build();
         // save in DB
         userRepository3.save(user);

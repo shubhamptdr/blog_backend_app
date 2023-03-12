@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 
+import com.blog.dtos.request.ImageEntryDto;
 import com.blog.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,11 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
-    @PostMapping("/{blogId}/add-image")
-    public ResponseEntity<String> addImage(@PathVariable int blogId, @RequestParam String description, @RequestParam String dimensions) {
+    @PostMapping("/add-image")
+    public ResponseEntity<String> addImage(@RequestBody ImageEntryDto imageEntryDto) {
 
         try{
-            String response = imageService.addImage(blogId,description,dimensions);
+            String response = imageService.addImage(imageEntryDto);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         catch (Exception e){

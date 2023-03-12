@@ -1,5 +1,6 @@
 package com.blog.services.impl;
 
+import com.blog.dtos.request.ImageEntryDto;
 import com.blog.entities.Blog;
 import com.blog.entities.Image;
 import com.blog.repositories.BlogRepository;
@@ -16,16 +17,16 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     ImageRepository imageRepository2;
     @Override
-    public String addImage(int blogId, String description, String dimensions) throws Exception {
+    public String addImage(ImageEntryDto imageEntryDto) throws Exception {
         // fetch blog entity
-        Blog blog = blogRepository2.findById(blogId).get();
+        Blog blog = blogRepository2.findById(imageEntryDto.getBlogId()).get();
         if (blog == null)
             throw new Exception("Blog not found");
 
         // create image entity
         Image image = Image.builder()
-                .dimensions(dimensions)
-                .description(description)
+                .dimensions(imageEntryDto.getDimensions())
+                .description(imageEntryDto.getDescription())
                 .blog(blog)
                 .build();
 

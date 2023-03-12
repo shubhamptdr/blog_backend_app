@@ -1,11 +1,12 @@
 package com.blog.services;
 
 
+import com.blog.dtos.request.ImageEntryDto;
 
 public interface ImageService {
 
 
-    String addImage(int blogId, String description, String dimensions) throws Exception;
+    String addImage(ImageEntryDto imageEntryDto) throws Exception;
 
     int countImagesInScreen(int id, String screenDimensions);
 

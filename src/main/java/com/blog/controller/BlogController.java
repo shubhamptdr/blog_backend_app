@@ -1,6 +1,6 @@
 package com.blog.controller;
 
-import com.blog.entities.Blog;
+import com.blog.dtos.request.BlogEntryDto;
 import com.blog.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,10 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @PostMapping
-    public ResponseEntity<String> createBlog(@RequestParam Integer userId, @RequestParam String title, @RequestParam String content){
+    @PostMapping("/createBlog")
+    public ResponseEntity<String> createBlog(@RequestBody BlogEntryDto blogEntryDto){
         try {
-            String response = blogService.createAndReturnBlog(userId, title, content);
+            String response = blogService.createAndReturnBlog(blogEntryDto);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         catch (Exception e){

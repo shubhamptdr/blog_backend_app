@@ -1,5 +1,6 @@
 package com.blog.services.impl;
 
+import com.blog.dtos.request.BlogEntryDto;
 import com.blog.entities.Blog;
 import com.blog.entities.User;
 import com.blog.repositories.BlogRepository;
@@ -19,17 +20,17 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     UserRepository userRepository1;
     @Override
-    public String createAndReturnBlog(Integer userId, String title, String content) throws Exception {
+    public String createAndReturnBlog(BlogEntryDto blogEntryDto) throws Exception {
 
-        User user = userRepository1.findById(userId).get();
+        User user = userRepository1.findById(blogEntryDto.getUserId()).get();
         if(user == null)
             throw new Exception("User not found");
 
         // create blog entity
         Blog blog = Blog.builder()
-                .title(title)
+                .title(blogEntryDto.getTitle())
+                .content(blogEntryDto.getContent())
                 .user(user)
-                .content(content)
                 .pubDate(new Date())
                 .build();
 
@@ -41,9 +42,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public String deleteBlog(int blogId) throws Exception {
+
         Blog blog = blogRepository1.findById(blogId).get();
+
         if(blog == null)
             throw new Exception("Blog not found");
+
         blogRepository1.deleteById(blogId);
         return "Blog deleted successfully";
     }
